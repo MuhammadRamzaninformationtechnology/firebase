@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "466915044351",
+    "project_id": "demy-9b9d2",
+    "storage_bucket": "demy-9b9d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466915044351:android:a67fc167b75c5f9e3955ca",
+        "android_client_info": {
+          "package_name": "com.value.Demy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466915044351-2c28qiv0rbe0c86mql45esemuvfv4nt8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrn0zx0wI36mJE_N5vbN36AgcvqgD7msc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466915044351-2c28qiv0rbe0c86mql45esemuvfv4nt8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
