@@ -1,6 +1,7 @@
 import 'package:firebase/ui/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../Utils_firebase/Utils.dart';
 import '../../widgets/round_button.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -11,6 +12,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+
+  bool loading = false;
   final formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -24,6 +27,23 @@ class _SignupScreenState extends State<SignupScreen> {
     passwordController.dispose();
   }
 
+  void SignUp(){
+    setState(() {
+      loading = true;
+    });
+    firebaseAuth.createUserWithEmailAndPassword(
+        email: emailController.text.toString(),
+        password: passwordController.text.toString()).then((value) {
+      setState(() {
+        loading = false;
+      });
+    }).onError((error, stackTrace) {
+      Utils().toastMessage(error.toString());
+      setState(() {
+        loading = false;
+      });
+    });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,12 +102,12 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: 50),
             RoundButton(
               title: 'Sign Up',
+              loading: loading,
               ontap: () {
 
                 if(formkey.currentState!.validate()){
-                  firebaseAuth.createUserWithEmailAndPassword(
-                      email: emailController.text.toString(),
-                      password: passwordController.text.toString());
+
+               SignUp();
                 };
               },
             ),
@@ -100,7 +120,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
 
                 },
-                    child: Text('Login'))
+                    child: const Text('Login'))
               ],
             )
 
