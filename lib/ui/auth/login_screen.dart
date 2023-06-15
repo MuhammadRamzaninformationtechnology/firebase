@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:firebase/Utils_firebase/Utils.dart';
 import 'package:firebase/ui/auth/Signup_screen.dart';
+import 'package:firebase/ui/auth/login_with_phone_number.dart';
 import 'package:firebase/ui/post/post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -136,6 +137,23 @@ setState(() {
                   },
                       child: Text('Sign up'))
                 ],
+              ),
+              const SizedBox(height: 30),
+              InkWell(
+               onTap: (){
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginWithPhoneNumber()));
+
+               },
+                child: Container(
+                height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                   border: Border.all(
+                     color:  Colors.black,
+                   )
+                  ),
+                  child:  Text('Login with Phone NO'),
+                ),
               )
 
             ],
