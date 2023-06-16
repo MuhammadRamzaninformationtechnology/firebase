@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:firebase/Utils_firebase/Utils.dart';
 import 'package:firebase/ui/auth/Signup_screen.dart';
 import 'package:firebase/ui/auth/login_with_phone_number.dart';
+import 'package:firebase/ui/firebase/firestore_list_screen.dart';
 import 'package:firebase/ui/post/post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((value) {
       Utils().toastMessage("Login In Successfully");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PostScreen()));
+          context, MaterialPageRoute(builder: (context) => FirestoreScreen()));
       setState(() {
         loading = false;
       });
