@@ -17,15 +17,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool loading = false ;
+  bool loading = false;
   final formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  FirebaseAuth _Auth= FirebaseAuth.instance;
-
-
-
+  FirebaseAuth _Auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
@@ -35,42 +32,47 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
   }
 
-  void login(){
-setState(() {
-  loading=true;
-
-});
-    _Auth.signInWithEmailAndPassword(email: emailController.text.toString(), password: passwordController.text.toString()).then((value){
-      Utils().toastMessage(value.user.toString());
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>PostScreen())
-        );
-     setState(() {
-       loading=false;
-     });
-
-    }).onError((error, stackTrace){
-      debugPrint(error.toString());
-    Utils().toastMessage(error.toString());
+  void login() {
+    setState(() {
+      loading = true;
+    });
+    _Auth.signInWithEmailAndPassword(
+            email: emailController.text.toString(),
+            password: passwordController.text.toString())
+        .then((value) {
+      Utils().toastMessage("Login In Successfully");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PostScreen()));
       setState(() {
-        loading=false;
+        loading = false;
+      });
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
+      Utils().toastMessage(error.toString());
+      setState(() {
+        loading = false;
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         SystemNavigator.pop();
         return true;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
+
           automaticallyImplyLeading: false,
           title: Text('Login'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
+
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -88,17 +90,17 @@ setState(() {
                           helperText: 'Enter the email e.g jon@gmail.com',
                           prefixIcon: Icon(Icons.alternate_email_outlined),
                         ),
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return'Enter the Email';
-                          }return null;
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter the Email';
+                          }
+                          return null;
                         },
                       ),
                       SizedBox(height: 20),
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.text,
-
                         obscureText: true,
                         decoration: const InputDecoration(
                           hintText: 'Password',
@@ -107,22 +109,22 @@ setState(() {
                           helperText: 'Enter the password 6 e.g 123456',
                           prefixIcon: Icon(Icons.lock_outline_rounded),
                         ),
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return'Enter the Password';
-                          }return null;
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter the Password';
+                          }
+                          return null;
                         },
-
                       ),
                     ],
-                  )),
-             const SizedBox(height: 50),
+                  )
+              ),
+              const SizedBox(height: 50),
               RoundButton(
                 title: 'Login',
                 loading: loading,
                 ontap: () {
-
-                  if(formkey.currentState!.validate()){
+                  if (formkey.currentState!.validate()) {
                     login();
                   }
                 },
@@ -132,30 +134,38 @@ setState(() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Don't have account?"),
-                  TextButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
-                  },
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignupScreen()));
+                      },
                       child: Text('Sign up'))
                 ],
               ),
               const SizedBox(height: 30),
               InkWell(
-               onTap: (){
-                 Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginWithPhoneNumber()));
-
-               },
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginWithPhoneNumber()));
+                },
                 child: Container(
-                height: 50,
+                  height: 50,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                   border: Border.all(
-                     color:  Colors.black,
-                   )
+                      borderRadius: BorderRadius.circular(40),
+                    border: Border.all(
+                      color:Colors.black,
+                    )
+
                   ),
-                  child:  Text('Login with Phone NO'),
+                  child: Center(
+                    child: Text('Login with Phone NO'),
+                  ),
                 ),
               )
-
             ],
           ),
         ),

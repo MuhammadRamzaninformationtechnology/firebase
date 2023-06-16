@@ -29,6 +29,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
             SizedBox(height: 80),
             TextFormField(
               controller: phonenumbercontroller,
+
               decoration: const InputDecoration(
                 hintText: 'Phone',
                 border: OutlineInputBorder(),
@@ -38,20 +39,35 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
               ),
             ),
             SizedBox(height: 80),
-         RoundButton(title: "Login", ontap: (){
+         RoundButton(title: "Login",loading: loading, ontap: (){
+           setState((){
+              loading=true;
+           });
            auth.verifyPhoneNumber(
              phoneNumber: phonenumbercontroller.text,
-               verificationCompleted: (_){},
+               verificationCompleted: (_){
+                 setState((){
+                   loading=false;
+                 });
+               },
                verificationFailed: (e){
+                 setState((){
+                   loading=false;
+                 });
                Utils().toastMessage(e.toString());
                },
                codeSent: (String verificaionId,int? token){
                  Navigator.push(context, MaterialPageRoute(builder: (context)=>VerifyCodeScreen(verificaion: verificaionId,)));
 
+                 setState((){
+                   loading=false;
+                 });
                },
                codeAutoRetrievalTimeout: (e){
                  Utils().toastMessage(e.toString());
-
+                 setState((){
+                   loading=false;
+                 });
                }
                );
 
